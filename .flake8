@@ -1,0 +1,5 @@
+[flake8]
+max-line-length = 88
+# F811: plum-dispatch constructor overloads redefine __init__ by design.
+extend-ignore = E203, W503, F811
+exclude = .venv, build, dist, tmp
