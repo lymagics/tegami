@@ -67,7 +67,8 @@ print(receipt.id())
    - [Your Own Transport](#your-own-transport)
 8. [Testing Your Code](#testing-your-code)
 9. [Development](#development)
-10. [License](#license)
+10. [How to Report Issues](#how-to-report-issues)
+11. [License](#license)
 
 ---
 
@@ -585,6 +586,22 @@ make help     # list all commands
 ```
 
 Tests run against a local SMTP server and a fake SendGrid API. No internet needed.
+
+---
+
+## How to Report Issues
+
+### Enhancements
+
+Open a GitHub issue and label it `enhancement`. Describe the desired behaviour and why it is useful. No code is required.
+
+### Bugs in Code
+
+Open a pull request, not an issue. The PR must contain a test that reproduces the bug and fails against the current code. Mark the test with `pytest.mark.skip` and a short reason, so CI stays green while the failing case is on record. The fix can arrive in the same or a follow-up PR, which removes the skip. Contributors without push rights fork the repository first.
+
+### Bugs Outside Code
+
+If the bug cannot be reproduced with a test (documentation, packaging, CI configuration, and so on), open a GitHub issue and label it `bug`. Describe the expected and actual behaviour and how to observe it.
 
 ---
 
