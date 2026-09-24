@@ -22,7 +22,7 @@ dev = [
     "pytest-repeat==0.9.4",
     "PyHamcrest==2.1.0",
     "aiosmtpd==1.4.6",
-    "hypothesis==6.168.0",
+    "hypothesis==6.168.1",
     "black==26.5.1",
     "flake8==7.4.1",
     "ruff==0.16.8",
