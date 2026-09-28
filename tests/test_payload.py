@@ -1,4 +1,4 @@
-from hamcrest import assert_that, equal_to, has_entry, has_key, is_not
+from hamcrest import assert_that, calling, equal_to, has_entry, has_key, is_not, raises
 
 from tegami.address import Address
 from tegami.content import Text
@@ -74,6 +74,20 @@ def test_maps_subject():
         payload,
         has_entry("subject", "Payload subject ✓"),
         "Payload must copy the Subject header",
+    )
+
+
+def test_fails_clearly_without_from_header():
+    payload = Payload(
+        Email(
+            To(Address("orphan@payload.example")),
+            Text("nobody sent this"),
+        ).mime()
+    )
+    assert_that(
+        calling(payload.json),
+        raises(Exception, "From"),
+        "Payload must raise a clear error when the email has no From header",
     )
 
 
