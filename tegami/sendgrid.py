@@ -69,13 +69,22 @@ class Payload:
     def json(self) -> dict:
         body = {
             "personalizations": [self._personalization()],
-            "from": People(self.message, "From").json()[0],
+            "from": self._sender(),
             "reply_to_list": People(self.message, "Reply-To").json(),
             "subject": str(self.message["Subject"]),
             "content": Contents(self.message).json(),
             "attachments": Attachments(self.message).json(),
         }
         return {key: value for key, value in body.items() if value}
+
+    def _sender(self) -> dict:
+        senders = People(self.message, "From").json()
+        if not senders:
+            raise Exception(
+                f"Can't send email {self.message['Message-ID']} "
+                "through SendGrid without a From header"
+            )
+        return senders[0]
 
     def _personalization(self) -> dict:
         targets = {
