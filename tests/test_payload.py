@@ -92,9 +92,14 @@ def test_fails_clearly_without_from_header():
     )
 
 
-# TODO: Bug: SendGrid payload sends subject "None" when Subject is missing. https://github.com/lymagics/tegami/pull/16
+# TODO: Bug: SendGrid payload sends subject "None" when Subject is missing.
+# https://github.com/lymagics/tegami/pull/16
 @pytest.mark.skip(
-    reason="Bug: SendGrid payload sends subject 'None' when Subject is missing. See PR #16 / https://github.com/lymagics/tegami/pull/16"
+    reason=(
+        "Bug: SendGrid payload sends subject 'None' when Subject is missing. "
+        "See PR #16 / "
+        "https://github.com/lymagics/tegami/pull/16"
+    )
 )
 def test_omits_subject_when_email_has_none():
     payload = Payload(
