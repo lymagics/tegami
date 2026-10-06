@@ -71,7 +71,7 @@ class Payload:
             "personalizations": [self._personalization()],
             "from": self._sender(),
             "reply_to_list": People(self.message, "Reply-To").json(),
-            "subject": str(self.message["Subject"]),
+            "subject": str(self.message.get("Subject", "")),
             "content": Contents(self.message).json(),
             "attachments": Attachments(self.message).json(),
         }

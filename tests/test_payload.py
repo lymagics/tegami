@@ -1,4 +1,3 @@
-import pytest
 from hamcrest import assert_that, calling, equal_to, has_entry, has_key, is_not, raises
 
 from tegami.address import Address
@@ -92,15 +91,6 @@ def test_fails_clearly_without_from_header():
     )
 
 
-# TODO: Bug: SendGrid payload sends subject "None" when Subject is missing.
-# https://github.com/lymagics/tegami/pull/16
-@pytest.mark.skip(
-    reason=(
-        "Bug: SendGrid payload sends subject 'None' when Subject is missing. "
-        "See PR #16 / "
-        "https://github.com/lymagics/tegami/pull/16"
-    )
-)
 def test_omits_subject_when_email_has_none():
     payload = Payload(
         Email(
