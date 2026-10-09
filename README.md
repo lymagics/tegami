@@ -1,6 +1,7 @@
 # Tegami
 
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
+[![PyPI Downloads](https://static.pepy.tech/personalized-badge/tegami?period=total&units=INTERNATIONAL_SYSTEM&left_color=BLACK&right_color=GREEN&left_text=downloads)](https://pepy.tech/projects/tegami)
 
 <img src="tegami.png" width=125 height=125 alt="Tegami" />
 
