@@ -42,7 +42,8 @@ def test_keeps_original_message_intact():
     )
 
 
-# TODO: Bug: Envelope lists an address twice when it is in To and Cc, https://github.com/lymagics/tegami/pull/26
+# TODO: Bug: Envelope lists an address twice when it is in To and Cc,
+# https://github.com/lymagics/tegami/pull/26
 @pytest.mark.skip(
     reason="Bug: Envelope lists an address twice when it is in To and Cc, "
     "https://github.com/lymagics/tegami/pull/26"
