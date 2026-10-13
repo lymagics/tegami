@@ -1,6 +1,5 @@
 from email.message import EmailMessage
 
-import pytest
 from hamcrest import assert_that, contains_exactly, equal_to, none
 
 from tegami.envelope import Envelope
@@ -42,12 +41,6 @@ def test_keeps_original_message_intact():
     )
 
 
-# TODO: Bug: Envelope lists an address twice when it is in To and Cc,
-# https://github.com/lymagics/tegami/pull/26
-@pytest.mark.skip(
-    reason="Bug: Envelope lists an address twice when it is in To and Cc, "
-    "https://github.com/lymagics/tegami/pull/26"
-)
 def test_lists_a_repeated_recipient_once():
     message = EmailMessage()
     message["To"] = "twin@dup.example, other@dup.example"
