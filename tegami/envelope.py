@@ -9,9 +9,11 @@ class Envelope:
 
     def recipients(self) -> tuple[str, ...]:
         return tuple(
-            spec
-            for header in ("To", "Cc", "Bcc")
-            for _, spec in getaddresses(self.message.get_all(header, ()))
+            dict.fromkeys(
+                spec
+                for header in ("To", "Cc", "Bcc")
+                for _, spec in getaddresses(self.message.get_all(header, ()))
+            )
         )
 
     def content(self) -> EmailMessage:
