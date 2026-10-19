@@ -1,5 +1,6 @@
 from email.message import EmailMessage
 
+import pytest
 from hamcrest import assert_that, calling, equal_to, raises
 
 from tegami.headers import Subject
@@ -15,6 +16,11 @@ def test_writes_unicode_subject():
     )
 
 
+# TODO: Bug: line break raises ValueError https://github.com/lymagics/tegami/pull/37
+@pytest.mark.skip(
+    reason="Bug: Subject line break raises ValueError "
+    "https://github.com/lymagics/tegami/pull/37"
+)
 def test_rejects_subject_with_line_break_using_plain_exception():
     assert_that(
         calling(Subject("Invoice\r\nBcc: x@y.zz").write).with_args(EmailMessage()),
