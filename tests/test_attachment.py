@@ -1,6 +1,6 @@
 from email.message import EmailMessage
 
-from hamcrest import assert_that, equal_to
+from hamcrest import assert_that, calling, equal_to, raises
 
 from tegami.attachment import Attachment, Bytes
 
@@ -42,4 +42,14 @@ def test_uses_explicit_content_type():
         next(message.iter_attachments()).get_content_type(),
         equal_to("application/x-custom"),
         "Attachment must prefer an explicit MIME type",
+    )
+
+
+def test_rejects_malformed_content_type_using_plain_exception():
+    assert_that(
+        calling(Attachment("odd.bin", Bytes(b"\x00\xff"), "notatype").write).with_args(
+            EmailMessage()
+        ),
+        raises(Exception, "Invalid content type"),
+        "Attachment must reject a malformed content type using a plain exception",
     )
