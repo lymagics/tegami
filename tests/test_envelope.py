@@ -50,3 +50,14 @@ def test_lists_a_repeated_recipient_once():
         contains_exactly("twin@dup.example", "other@dup.example"),
         "Envelope must list an address once even if it is in To and Cc",
     )
+
+
+def test_ignores_header_without_addresses():
+    message = EmailMessage()
+    message["To"] = "only@env.example"
+    message["Cc"] = ""
+    assert_that(
+        Envelope(message).recipients(),
+        contains_exactly("only@env.example"),
+        "Envelope must not list an empty recipient for a blank Cc header",
+    )
