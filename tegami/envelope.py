@@ -13,6 +13,7 @@ class Envelope:
                 spec
                 for header in ("To", "Cc", "Bcc")
                 for _, spec in getaddresses(self.message.get_all(header, ()))
+                if spec
             )
         )
 
