@@ -31,6 +31,7 @@ class People:
         return [
             Person(name, spec).json()
             for name, spec in getaddresses(self.message.get_all(self.header, ()))
+            if spec
         ]
 
 

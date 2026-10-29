@@ -24,3 +24,13 @@ def test_lists_nobody_for_missing_header():
         empty(),
         "People must be empty when the header is absent",
     )
+
+
+def test_lists_nobody_for_blank_header():
+    message = EmailMessage()
+    message["Bcc"] = "   "
+    assert_that(
+        People(message, "Bcc").json(),
+        empty(),
+        "People must not list an empty address for a blank header",
+    )
