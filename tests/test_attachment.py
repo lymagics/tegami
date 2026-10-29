@@ -1,6 +1,5 @@
 from email.message import EmailMessage
 
-import pytest
 from hamcrest import assert_that, calling, equal_to, raises
 
 from tegami.attachment import Attachment, Bytes
@@ -46,10 +45,6 @@ def test_uses_explicit_content_type():
     )
 
 
-# TODO: Bug: bad type raises ValueError https://github.com/lymagics/tegami/pull/38
-@pytest.mark.skip(
-    reason="Bug: bad type raises ValueError https://github.com/lymagics/tegami/pull/38"
-)
 def test_rejects_malformed_content_type_using_plain_exception():
     assert_that(
         calling(Attachment("odd.bin", Bytes(b"\x00\xff"), "notatype").write).with_args(
