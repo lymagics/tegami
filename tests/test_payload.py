@@ -1,9 +1,10 @@
+import pytest
 from hamcrest import assert_that, calling, equal_to, has_entry, has_key, is_not, raises
 
 from tegami.address import Address
 from tegami.content import Text
 from tegami.email import Email
-from tegami.headers import Bcc, From, ReplyTo, Subject, To
+from tegami.headers import Bcc, Cc, From, ReplyTo, Subject, To
 from tegami.sendgrid import Payload
 
 
@@ -118,4 +119,25 @@ def test_omits_empty_sections():
         payload,
         is_not(has_key("attachments")),
         "Payload must leave out sections that have nothing in them",
+    )
+
+
+# TODO: Bug: Payload repeats a recipient https://github.com/lymagics/tegami/pull/59
+@pytest.mark.skip(
+    reason="Bug: Payload repeats a recipient "
+    "https://github.com/lymagics/tegami/pull/59"
+)
+def test_lists_recipient_repeated_in_to_and_cc_once():
+    personalization = Payload(
+        Email(
+            From(Address("dup-from@payload.example")),
+            To(Address("twice-7@payload.example")),
+            Cc(Address("twice-7@payload.example")),
+            Text("repeated across fields"),
+        ).mime()
+    ).json()["personalizations"][0]
+    assert_that(
+        personalization,
+        equal_to({"to": [{"email": "twice-7@payload.example"}]}),
+        "Payload must list a recipient repeated in to and cc once",
     )
