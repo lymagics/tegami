@@ -1,4 +1,3 @@
-import pytest
 from hamcrest import assert_that, calling, equal_to, has_entry, has_key, is_not, raises
 
 from tegami.address import Address
@@ -122,11 +121,6 @@ def test_omits_empty_sections():
     )
 
 
-# TODO: Bug: Payload repeats a recipient https://github.com/lymagics/tegami/pull/61
-@pytest.mark.skip(
-    reason="Bug: Payload repeats a recipient "
-    "https://github.com/lymagics/tegami/pull/61"
-)
 def test_leaves_cc_empty_for_recipient_already_in_to():
     personalization = Payload(
         Email(
