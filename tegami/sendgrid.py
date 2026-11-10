@@ -35,6 +35,16 @@ class People:
         ]
 
 
+class Newcomers:
+    def __init__(self, people: People, earlier: tuple[People, ...]):
+        self.people = people
+        self.earlier = earlier
+
+    def json(self) -> list[dict]:
+        known = {person["email"] for group in self.earlier for person in group.json()}
+        return [person for person in self.people.json() if person["email"] not in known]
+
+
 class Contents:
     def __init__(self, message: EmailMessage):
         self.message = message
@@ -88,10 +98,12 @@ class Payload:
         return senders[0]
 
     def _personalization(self) -> dict:
+        to = People(self.message, "To")
+        cc = People(self.message, "Cc")
         targets = {
-            "to": People(self.message, "To").json(),
-            "cc": People(self.message, "Cc").json(),
-            "bcc": People(self.message, "Bcc").json(),
+            "to": to.json(),
+            "cc": Newcomers(cc, (to,)).json(),
+            "bcc": Newcomers(People(self.message, "Bcc"), (to, cc)).json(),
         }
         return {key: value for key, value in targets.items() if value}
 
