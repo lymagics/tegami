@@ -22,3 +22,13 @@ def test_rejects_malformed_address(email: str):
         raises(Exception, "Invalid email address"),
         f"Valid must reject {email!r}",
     )
+
+
+# TODO: Bug: Valid crashes on non-ASCII address, see PR_URL
+@pytest.mark.skip(reason="Bug: Valid crashes on non-ASCII address, see PR_URL")
+def test_rejects_non_ascii_address_using_plain_exception():
+    assert_that(
+        calling(Valid(Address("zoë@straße.example")).value),
+        raises(Exception, "Invalid email address"),
+        "Valid must report a non-ASCII address with a clear plain exception",
+    )
