@@ -24,8 +24,12 @@ def test_rejects_malformed_address(email: str):
     )
 
 
-# TODO: Bug: Valid crashes on non-ASCII address, see https://github.com/lymagics/tegami/pull/66
-@pytest.mark.skip(reason="Bug: Valid crashes on non-ASCII address, see https://github.com/lymagics/tegami/pull/66")
+# TODO: Bug: Valid crashes on non-ASCII address,
+# see https://github.com/lymagics/tegami/pull/66
+@pytest.mark.skip(
+    reason="Bug: Valid crashes on non-ASCII address, "
+    "see https://github.com/lymagics/tegami/pull/66"
+)
 def test_rejects_non_ascii_address_using_plain_exception():
     assert_that(
         calling(Valid(Address("zoë@straße.example")).value),
