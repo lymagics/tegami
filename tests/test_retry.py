@@ -1,5 +1,6 @@
 import asyncio
 
+import pytest
 from hamcrest import assert_that, calling, equal_to, greater_than_or_equal_to, raises
 
 from tegami.email import Email
@@ -42,4 +43,12 @@ async def test_waits_a_second_by_default():
         asyncio.get_running_loop().time() - started,
         greater_than_or_equal_to(0.9),
         "Retry must pause about one second between attempts by default",
+    )
+
+
+async def test_accepts_delay_in_whole_seconds():
+    assert_that(
+        (await Retry(FakeDelivery(1, receipt("whole-zero")), 2, 0).send(Email())).id(),
+        equal_to("whole-zero"),
+        "Retry must accept a delay given as a whole number of seconds",
     )
