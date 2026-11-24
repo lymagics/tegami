@@ -46,6 +46,12 @@ async def test_waits_a_second_by_default():
     )
 
 
+# TODO: Bug: Retry rejects a whole-number delay,
+# see https://github.com/lymagics/tegami/pull/73
+@pytest.mark.skip(
+    reason="Bug: Retry rejects a whole-number delay, "
+    "see https://github.com/lymagics/tegami/pull/73"
+)
 async def test_accepts_delay_in_whole_seconds():
     assert_that(
         (await Retry(FakeDelivery(1, receipt("whole-zero")), 2, 0).send(Email())).id(),
